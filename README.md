@@ -107,7 +107,7 @@ directive. Set it to the value you need.
 
  3. Build the nginx binary.
  
- 4. Install nginx binary
+ 4. Install nginx binary.
  
  5. Configure contexts where concat is enabled.
  
@@ -126,6 +126,8 @@ directive. Set it to the value you need.
     [minification](https://en.wikipedia.org/wiki/Minification_\(programming\))
     of files. So you might want to minify the files before
     concatenating them.
+    
+ 8. Done.   
     
 ## Other builds
 
