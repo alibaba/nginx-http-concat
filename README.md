@@ -44,6 +44,8 @@ this:
 
 It enables the concatenation in a given context.
 
+<br/>
+<br/>
 
 **concat_types** `MIME types`
 
@@ -54,6 +56,8 @@ It enables the concatenation in a given context.
 Defines the [MIME types](http://en.wikipedia.org/wiki/MIME_type) which
 can be concatenated in a given context.
 
+<br/>
+<br/>
 
 **concat_unique** `on` | `off`
 
@@ -73,6 +77,8 @@ JS you cannot do something like this:
     
 In order to do that you **must** set `concat_unique off`.
 
+<br/>
+<br/>
 
 **concat\_max\_files** `number`
 
