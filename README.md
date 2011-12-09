@@ -80,7 +80,7 @@ In order to do that you **must** set `concat_unique off`.
 <br/>
 <br/>
 
-**concat\_max\_files** `number`
+**concat\_max\_files** `number`p
 
 **default:** `concat_max_files 10`
 
@@ -123,7 +123,7 @@ directive. Set it to the value you need.
     bar where before there were many. Congratulations you're now using
     file concatenation at the server level. No longer messing around
     with scripts for aggregating files. Note although that there's no
-    [minification](https://en.wikipedia.org/wiki/Minification_(programming))
+    [minification](https://en.wikipedia.org/wiki/Minification_\(programming\))
     of files. So you might want to minify the files before
     concatenating them.
     
