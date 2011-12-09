@@ -75,7 +75,9 @@ JS you cannot do something like this:
 
     http://example.com/static??foo.css,bar/foobaz.js
     
-In order to do that you **must** set `concat_unique off`.
+In order to do that you **must** set `concat_unique off`. This applies
+to any other type of files that you decide to concatenate by adding
+the respective MIME type via `concat_types`,
 
 <br/>
 <br/>
@@ -118,6 +120,10 @@ directive. Set it to the value you need.
     
         <link rel="stylesheet" href="??foo1.css,foo2.css,subdir/foo3.css?v=2345" />
               
+    Similarly for Javascript files you should have:
+    
+        <script src="??bar1.js,bar22.css,subdir/bar3.js?v=3245" />
+                  
  7. Now if you open up the network tab on firebug or on
     safari/chrome/chromium browser inspector you should see a single
     bar where before there were many. Congratulations you're now using
