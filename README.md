@@ -109,7 +109,7 @@ directive. Set it to the value you need.
 
  3. Build the nginx binary.
  
- 4. Install nginx binary.
+ 4. Install the nginx binary.
  
  5. Configure contexts where concat is enabled.
  
