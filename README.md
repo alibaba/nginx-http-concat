@@ -13,12 +13,12 @@ The module is inspired by Apache's
 [`modconcat`](http://code.google.com/p/modconcat). It follows the same
 pattern for enabling the concatenation. It uses two `?`, like this: 
 
-    http://example.com??style1.css,style2.css,foo/style3.css
+    http://example.com/??style1.css,style2.css,foo/style3.css
     
 If a **third** `?` is present it's treated as **version string**. Like
 this:
 
-    http://example.com??style1.css,style2.css,foo/style3.css?v=102234
+    http://example.com/??style1.css,style2.css,foo/style3.css?v=102234
 
 ## Configuration example
 
@@ -73,7 +73,7 @@ Note that the default value is `on`, meaning that only files with same
 MIME type are concatenated in a given context. So if you have CSS and
 JS you cannot do something like this:
 
-    http://example.com/static??foo.css,bar/foobaz.js
+    http://example.com/static/??foo.css,bar/foobaz.js
     
 In order to do that you **must** set `concat_unique off`. This applies
 to any other type of files that you decide to concatenate by adding
