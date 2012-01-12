@@ -159,8 +159,7 @@ enough to clarify things regarding this module on the
 
 ## License
 
- Copyright (C) 2002-2012 Igor Sysoev </br>
- Copyright (C) 2010-2012 Alibaba Group Holding Limited
+ Copyright (C) 2002-2012 Igor Sysoev, 2010-2012 Alibaba Group Holding Limited
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
