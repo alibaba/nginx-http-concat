@@ -136,7 +136,19 @@ directive. Set it to the value you need.
     concatenating them.
     
  8. Done.   
-    
+
+## Tagging releases 
+
+I'm tagging each release in synch with the
+[Tengine](http://tengine.taobao.org) releases.
+ 
+## Other tengine modules on Github
+
+ + [footer filter](https://github.com/perusio/nginx-http-footer-filter):
+   allows to add some extra data (markup or not) at the end of a
+   request body. It's pratical for things like adding time stamps or
+   other miscellaneous stuff without having to tweak your application.
+
 ## Other builds
 
  1. As referred at the outset this module is part of the
@@ -150,8 +162,7 @@ directive. Set it to the value you need.
     package. Instructions for using the repository and making the
     package live happily inside a stable distribution installation are
     [provided](http://debian.perusio.net).
-    
-    
+        
 ## Acknowledgments
 
 Thanks to [Joshua Zhu](http://blog.zhuzhaoyuan.com) and the Taobao
