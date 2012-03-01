@@ -148,6 +148,10 @@ I'm tagging each release in synch with the
    allows to add some extra data (markup or not) at the end of a
    request body. It's pratical for things like adding time stamps or
    other miscellaneous stuff without having to tweak your application.
+   
+ + [http slice](https://github.com/perusio/nginx-http-slice): allows
+   to serve a file by slices. A sort of reverse byte-range. Useful for
+   serving large files while not hogging the network.
 
 ## Other builds
 
