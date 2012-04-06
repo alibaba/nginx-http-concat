@@ -104,7 +104,7 @@ directive. Set it to the value you need.
 
  1. Clone the git repo.
      
-        git clone git://github.com/perusio/nginx-http-concat.git
+        git clone git://github.com/taobao/nginx-http-concat.git
 
  2. Add the module to the build configuration by adding
     `--add-module=/path/to/nginx-http-concat`.
@@ -144,12 +144,12 @@ I'm tagging each release in synch with the
  
 ## Other tengine modules on Github
 
- + [footer filter](https://github.com/perusio/nginx-http-footer-filter):
+ + [footer filter](https://github.com/taobao/nginx-http-footer-filter):
    allows to add some extra data (markup or not) at the end of a
    request body. It's pratical for things like adding time stamps or
    other miscellaneous stuff without having to tweak your application.
    
- + [http slice](https://github.com/perusio/nginx-http-slice): allows
+ + [http slice](https://github.com/taobao/nginx-http-slice): allows
    to serve a file by slices. A sort of reverse byte-range. Useful for
    serving large files while not hogging the network.
 
@@ -162,10 +162,10 @@ I'm tagging each release in synch with the
 
  2. If you fancy a bleeding edge Nginx package (from the dev releases)
     for Debian made to measure then you might be interested in my
-    [debian](http://debian.perusio.net/unstable) Nginx
+    [debian](http://debian.taobao.net/unstable) Nginx
     package. Instructions for using the repository and making the
     package live happily inside a stable distribution installation are
-    [provided](http://debian.perusio.net).
+    [provided](http://debian.taobao.net).
         
 ## Acknowledgments
 
