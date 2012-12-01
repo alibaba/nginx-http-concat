@@ -139,8 +139,10 @@ directive. Set it to the value you need.
 
 ## Tagging releases 
 
-I'm tagging each release in synch with the
-[Tengine](http://tengine.taobao.org) releases.
+Perusio is maintaing a tagged release
+at http://github.com/perusio/nginx-http-concat
+in synch with the [Tengine](http://tengine.taobao.org)
+releases. Refer there for the latest uncommitted tags.
  
 ## Other tengine modules on Github
 
@@ -161,11 +163,12 @@ I'm tagging each release in synch with the
     scratch using `tengine` in lieu if the official Nginx source.
 
  2. If you fancy a bleeding edge Nginx package (from the dev releases)
-    for Debian made to measure then you might be interested in my
-    [debian](http://debian.taobao.net/unstable) Nginx
-    package. Instructions for using the repository and making the
+    for Debian made to measure then you might be interested in Perusio's HA/HP
+    [debian](http://debian.perusio.net/unstable) Nginx
+    package with built-in support for nginx-http-concat.
+	Instructions for using the repository and making the
     package live happily inside a stable distribution installation are
-    [provided](http://debian.taobao.net).
+    [provided](http://debian.perusio.net).
         
 ## Acknowledgments
 
