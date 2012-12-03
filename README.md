@@ -165,7 +165,7 @@ Whether to ignore 404 and 403 or not.
 ## Tagging releases 
 
 Perusio is maintaing a tagged release
-at http://github.com/perusio/nginx-http-concat
+at http://github.com/taobao/nginx-http-concat
 in synch with the [Tengine](http://tengine.taobao.org)
 releases. Refer there for the latest uncommitted tags.
  
