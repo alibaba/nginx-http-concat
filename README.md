@@ -124,7 +124,7 @@ directive. Set it to the value you need.
               
     Similarly for Javascript files you should have:
     
-        <script src="??bar1.js,bar22.css,subdir/bar3.js?v=3245" />
+        <script src="??bar1.js,bar22.js,subdir/bar3.js?v=3245" />
                   
  7. Now if you open up the network tab on firebug or on
     safari/chrome/chromium browser inspector you should see a single
