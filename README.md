@@ -22,17 +22,15 @@ this:
 
 ## Configuration example
 
-    location ^~ /static {
-        location ~* /static/css/css_[[:alnum:]]+\.css$ {
-            concat on;
-            concat_max_files 20;
-        }
+    location /static/css/ {
+        concat on;
+        concat_max_files 20;
+    }
         
-        location ~* /static/js/js_[[:alnum:]]+\.js$ {
-            concat on;
-            concat_max_files 30;
-        }
-    } 
+    location /static/js/ {
+        concat on;
+        concat_max_files 30;
+    }
 
 ## Module directives
 
@@ -100,6 +98,33 @@ defined limitation you must use
 the [`large_client_header_buffers`](http://wiki.nginx.org/NginxHttpCoreModule#large_client_header_buffers)
 directive. Set it to the value you need.
 
+<br/>
+<br/>
+
+**concat_delimiter**: string
+
+**default**: NONE
+
+**context**: `http, server, locatione`
+
+Defines the **delimiter** between two files.
+If the config is **concat_delimiter "\n"**,a '\n' would be inserted betwen 1.js and 2.js when
+visted http://example.com/??1.js,2.js
+
+<br/>
+<br/>
+
+**concat_ignore_file_error**: `on` | `off`
+
+**default**: off
+
+**context**: `http, server, location`
+
+Whether to ignore 404 and 403 or not.
+
+<br/>
+<br/>
+
 ## Installation
 
  1. Clone the git repo.
@@ -139,8 +164,10 @@ directive. Set it to the value you need.
 
 ## Tagging releases 
 
-I'm tagging each release in synch with the
-[Tengine](http://tengine.taobao.org) releases.
+Perusio is maintaing a tagged release
+at http://github.com/taobao/nginx-http-concat
+in synch with the [Tengine](http://tengine.taobao.org)
+releases. Refer there for the latest uncommitted tags.
  
 ## Other tengine modules on Github
 
@@ -161,11 +188,12 @@ I'm tagging each release in synch with the
     scratch using `tengine` in lieu if the official Nginx source.
 
  2. If you fancy a bleeding edge Nginx package (from the dev releases)
-    for Debian made to measure then you might be interested in my
-    [debian](http://debian.taobao.net/unstable) Nginx
-    package. Instructions for using the repository and making the
+    for Debian made to measure then you might be interested in Perusio's HA/HP
+    [debian](http://debian.perusio.net/unstable) Nginx
+    package with built-in support for nginx-http-concat.
+    Instructions for using the repository and making the
     package live happily inside a stable distribution installation are
-    [provided](http://debian.taobao.net).
+    [provided](http://debian.perusio.net).
         
 ## Acknowledgments
 
