@@ -22,17 +22,15 @@ this:
 
 ## Configuration example
 
-    location ^~ /static {
-        location ~* /static/css/css_[[:alnum:]]+\.css$ {
-            concat on;
-            concat_max_files 20;
-        }
+    location /static/css/ {
+        concat on;
+        concat_max_files 20;
+    }
         
-        location ~* /static/js/js_[[:alnum:]]+\.js$ {
-            concat on;
-            concat_max_files 30;
-        }
-    } 
+    location /static/js/ {
+        concat on;
+        concat_max_files 30;
+    }
 
 ## Module directives
 
@@ -100,6 +98,33 @@ defined limitation you must use
 the [`large_client_header_buffers`](http://wiki.nginx.org/NginxHttpCoreModule#large_client_header_buffers)
 directive. Set it to the value you need.
 
+<br/>
+<br/>
+
+**concat_delimiter**: string
+
+**default**: NONE
+
+**context**: `http, server, locatione`
+
+Defines the **delimiter** between two files.
+If the config is **concat_delimiter "\n"**,a '\n' would be inserted betwen 1.js and 2.js when
+visted http://example.com/??1.js,2.js
+
+<br/>
+<br/>
+
+**concat_ignore_file_error**: `on` | `off`
+
+**default**: off
+
+**context**: `http, server, location`
+
+Whether to ignore 404 and 403 or not.
+
+<br/>
+<br/>
+
 ## Installation
 
  1. Clone the git repo.
@@ -124,7 +149,7 @@ directive. Set it to the value you need.
               
     Similarly for Javascript files you should have:
     
-        <script src="??bar1.js,bar22.js,subdir/bar3.js?v=3245" />
+        <script src="??bar1.js,bar22.css,subdir/bar3.js?v=3245" />
                   
  7. Now if you open up the network tab on firebug or on
     safari/chrome/chromium browser inspector you should see a single
@@ -140,7 +165,7 @@ directive. Set it to the value you need.
 ## Tagging releases 
 
 Perusio is maintaing a tagged release
-at http://github.com/perusio/nginx-http-concat
+at http://github.com/taobao/nginx-http-concat
 in synch with the [Tengine](http://tengine.taobao.org)
 releases. Refer there for the latest uncommitted tags.
  
@@ -166,7 +191,7 @@ releases. Refer there for the latest uncommitted tags.
     for Debian made to measure then you might be interested in Perusio's HA/HP
     [debian](http://debian.perusio.net/unstable) Nginx
     package with built-in support for nginx-http-concat.
-	Instructions for using the repository and making the
+    Instructions for using the repository and making the
     package live happily inside a stable distribution installation are
     [provided](http://debian.perusio.net).
         
