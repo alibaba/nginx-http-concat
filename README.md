@@ -22,12 +22,12 @@ this:
 
 ## Configuration example
 
-    location ~* /static/css/ {
+    location /static/css/ {
         concat on;
         concat_max_files 20;
     }
         
-    location ~* /static/js/ {
+    location /static/js/ {
         concat on;
         concat_max_files 30;
     }
