@@ -22,17 +22,15 @@ this:
 
 ## Configuration example
 
-    location ^~ /static {
-        location ~* /static/css/css_[[:alnum:]]+\.css$ {
-            concat on;
-            concat_max_files 20;
-        }
+    location ~* /static/css/ {
+        concat on;
+        concat_max_files 20;
+    }
         
-        location ~* /static/js/js_[[:alnum:]]+\.js$ {
-            concat on;
-            concat_max_files 30;
-        }
-    } 
+    location ~* /static/js/ {
+        concat on;
+        concat_max_files 30;
+    }
 
 ## Module directives
 
@@ -116,7 +114,7 @@ visted http://example.com/??1.js,2.js
 <br/>
 <br/>
 
-**concat_ignore_file_error**: on|off
+**concat_ignore_file_error**: `on` | `off`
 
 **default**: off
 
