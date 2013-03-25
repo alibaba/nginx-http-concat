@@ -14,6 +14,7 @@ typedef struct {
     ngx_uint_t   max_files;
     ngx_flag_t   unique;
     ngx_str_t    delimiter;
+    ngx_str_t    error_body;
     ngx_flag_t   ignore_file_error;
 
     ngx_hash_t   types;
@@ -23,6 +24,8 @@ typedef struct {
 
 static ngx_int_t ngx_http_concat_add_path(ngx_http_request_t *r,
     ngx_array_t *uris, size_t max, ngx_str_t *path, u_char *p, u_char *v);
+static ngx_int_t ngx_http_concat_insert_error_body(ngx_http_request_t *r,
+    ngx_chain_t *c, ngx_chain_t ***last, ngx_str_t *error_body);
 static ngx_int_t ngx_http_concat_init(ngx_conf_t *cf);
 static void *ngx_http_concat_create_loc_conf(ngx_conf_t *cf);
 static char *ngx_http_concat_merge_loc_conf(ngx_conf_t *cf, void *parent,
@@ -78,6 +81,13 @@ static ngx_command_t  ngx_http_concat_commands[] = {
       ngx_conf_set_flag_slot,
       NGX_HTTP_LOC_CONF_OFFSET,
       offsetof(ngx_http_concat_loc_conf_t, ignore_file_error),
+      NULL },
+
+    { ngx_string("concat_file_error_body"),
+      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_TAKE1,
+      ngx_conf_set_str_slot,
+      NGX_HTTP_LOC_CONF_OFFSET,
+      offsetof(ngx_http_concat_loc_conf_t, error_body),
       NULL },
 
       ngx_null_command
@@ -314,7 +324,18 @@ ngx_http_concat_handler(ngx_http_request_t *r)
             if (clcf->ignore_file_error
                 && (rc == NGX_HTTP_NOT_FOUND || rc == NGX_HTTP_FORBIDDEN))
             {
-                continue;
+                rc = ngx_http_concat_insert_error_body(r, &out, last_out,
+                                                       clcf->error_body);
+                if (rc == NGX_AGAIN) {
+                    continue;
+
+                } else if (rc == NGX_OK) {
+                    goto delimiter;
+
+                } else {
+                    // rc == NGX_ERROR
+                    return NGX_HTTP_INTERNAL_SERVER_ERROR;
+                }
             }
 
             return rc;
@@ -324,7 +345,17 @@ ngx_http_concat_handler(ngx_http_request_t *r)
             ngx_log_error(NGX_LOG_CRIT, r->connection->log, ngx_errno,
                           "\"%V\" is not a regular file", filename);
             if (clcf->ignore_file_error) {
-                continue;
+                rc = ngx_http_concat_insert_error_body(r, &out, &last_out,
+                                                       clcf->error_body);
+                if (rc == NGX_AGAIN) {
+                    continue;
+
+                } else if (rc == NGX_OK) {
+                    goto delimiter;
+
+                } else {
+                    return NGX_HTTP_INTERNAL_SERVER_ERROR;
+                }
             }
 
             return NGX_HTTP_NOT_FOUND;
@@ -480,6 +511,49 @@ ngx_http_concat_add_path(ngx_http_request_t *r, ngx_array_t *uris,
 }
 
 
+ngx_int_t
+ngx_http_concat_insert_error_body(ngx_http_request_t *r, ngx_chain_t *c,
+    ngx_chain_t ***last, ngx_str_t *error_body)
+{
+    ngx_chain_t *cl;
+
+    if (error_body->len == 0) {
+        return NGX_AGAIN;
+    }
+    
+    b = ngx_pcalloc(r->pool, sizeof(ngx_buf_t));
+    if (b == NULL) {
+        return NGX_ERROR;
+    }
+
+    b->memory = 1;
+    b->pos = error_body->data;
+    b->last = error_body->data + error_body->len;
+    b->start = b->pos;
+    b->end = b->last;
+
+    if (*last == NULL) {
+        c->buf = b;
+        *last = &c->next;
+        c->next = NULL;
+
+    } else {
+        cl = ngx_alloc_chain_link(r->pool);
+        if (cl == NULL) {
+            return NGX_ERROR;
+        }
+
+        cl->buf = b;
+
+        **last = cl;
+        *last = &cl->next;
+        cl->next = NULL;
+    }
+
+    return NGX_OK;
+}
+
+
 static void *
 ngx_http_concat_create_loc_conf(ngx_conf_t *cf)
 {
@@ -514,6 +588,7 @@ ngx_http_concat_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child)
 
     ngx_conf_merge_value(conf->enable, prev->enable, 0);
     ngx_conf_merge_str_value(conf->delimiter, prev->delimiter, "");
+    ngx_conf_merge_str_value(conf->error_body, prev->error_body, "");
     ngx_conf_merge_value(conf->ignore_file_error, prev->ignore_file_error, 0);
     ngx_conf_merge_uint_value(conf->max_files, prev->max_files, 10);
     ngx_conf_merge_value(conf->unique, prev->unique, 1);
