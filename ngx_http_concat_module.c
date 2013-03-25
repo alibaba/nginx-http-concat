@@ -1,6 +1,6 @@
 
 /*
- * Copyright (C) 2010-2012 Alibaba Group Holding Limited
+ * Copyright (C) 2010-2013 Alibaba Group Holding Limited
  */
 
 
@@ -25,7 +25,7 @@ typedef struct {
 static ngx_int_t ngx_http_concat_add_path(ngx_http_request_t *r,
     ngx_array_t *uris, size_t max, ngx_str_t *path, u_char *p, u_char *v);
 static ngx_int_t ngx_http_concat_insert_error_body(ngx_http_request_t *r,
-    ngx_chain_t *c, ngx_chain_t ***last, ngx_str_t *error_body);
+    ngx_chain_t *c, ngx_chain_t ***last, ngx_str_t *error_body, off_t *length);
 static ngx_int_t ngx_http_concat_init(ngx_conf_t *cf);
 static void *ngx_http_concat_create_loc_conf(ngx_conf_t *cf);
 static char *ngx_http_concat_merge_loc_conf(ngx_conf_t *cf, void *parent,
@@ -324,8 +324,9 @@ ngx_http_concat_handler(ngx_http_request_t *r)
             if (clcf->ignore_file_error
                 && (rc == NGX_HTTP_NOT_FOUND || rc == NGX_HTTP_FORBIDDEN))
             {
-                rc = ngx_http_concat_insert_error_body(r, &out, last_out,
-                                                       clcf->error_body);
+                rc = ngx_http_concat_insert_error_body(r, &out, &last_out,
+                                                       &clcf->error_body,
+                                                       &length);
                 if (rc == NGX_AGAIN) {
                     continue;
 
@@ -346,7 +347,8 @@ ngx_http_concat_handler(ngx_http_request_t *r)
                           "\"%V\" is not a regular file", filename);
             if (clcf->ignore_file_error) {
                 rc = ngx_http_concat_insert_error_body(r, &out, &last_out,
-                                                       clcf->error_body);
+                                                       &clcf->error_body,
+                                                       &length);
                 if (rc == NGX_AGAIN) {
                     continue;
 
@@ -413,6 +415,8 @@ ngx_http_concat_handler(ngx_http_request_t *r)
             last_out = &cl->next;
             cl->next = NULL;
         }
+
+delimiter:
 
         if (i + 1 == uris.nelts || clcf->delimiter.len == 0) {
             continue;
@@ -513,8 +517,9 @@ ngx_http_concat_add_path(ngx_http_request_t *r, ngx_array_t *uris,
 
 ngx_int_t
 ngx_http_concat_insert_error_body(ngx_http_request_t *r, ngx_chain_t *c,
-    ngx_chain_t ***last, ngx_str_t *error_body)
+    ngx_chain_t ***last, ngx_str_t *error_body, off_t *length)
 {
+    ngx_buf_t   *b;
     ngx_chain_t *cl;
 
     if (error_body->len == 0) {
@@ -549,6 +554,8 @@ ngx_http_concat_insert_error_body(ngx_http_request_t *r, ngx_chain_t *c,
         *last = &cl->next;
         cl->next = NULL;
     }
+
+    *length = *length + error_body->len;
 
     return NGX_OK;
 }
