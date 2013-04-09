@@ -129,7 +129,7 @@ Whether to ignore 404 and 403 or not.
 
  1. Clone the git repo.
      
-        git clone git://github.com/taobao/nginx-http-concat.git
+        git clone git://github.com/alibaba/nginx-http-concat.git
 
  2. Add the module to the build configuration by adding
     `--add-module=/path/to/nginx-http-concat`.
@@ -165,18 +165,18 @@ Whether to ignore 404 and 403 or not.
 ## Tagging releases 
 
 Perusio is maintaing a tagged release
-at http://github.com/taobao/nginx-http-concat
+at http://github.com/alibaba/nginx-http-concat
 in synch with the [Tengine](http://tengine.taobao.org)
 releases. Refer there for the latest uncommitted tags.
  
 ## Other tengine modules on Github
 
- + [footer filter](https://github.com/taobao/nginx-http-footer-filter):
+ + [footer filter](https://github.com/alibaba/nginx-http-footer-filter):
    allows to add some extra data (markup or not) at the end of a
    request body. It's pratical for things like adding time stamps or
    other miscellaneous stuff without having to tweak your application.
    
- + [http slice](https://github.com/taobao/nginx-http-slice): allows
+ + [http slice](https://github.com/alibaba/nginx-http-slice): allows
    to serve a file by slices. A sort of reverse byte-range. Useful for
    serving large files while not hogging the network.
 
