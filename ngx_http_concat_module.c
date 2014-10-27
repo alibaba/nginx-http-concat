@@ -30,7 +30,13 @@ static char *ngx_http_concat_merge_loc_conf(ngx_conf_t *cf, void *parent,
 
 
 static ngx_str_t  ngx_http_concat_default_types[] = {
+
+#if defined(nginx_version) && nginx_version >= 1005004
+    ngx_string("application/javascript"),
+#else
     ngx_string("application/x-javascript"),
+#endif
+
     ngx_string("text/css"),
     ngx_null_string
 };
