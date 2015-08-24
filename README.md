@@ -47,7 +47,7 @@ It enables the concatenation in a given context.
 
 **concat_types** `MIME types`
 
-**default:** `concat_types: text/css application/x-javascript`
+**default:** `concat_types: text/css application/javascript`
 
 **context:** `http, server, location`
 
