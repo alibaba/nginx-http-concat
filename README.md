@@ -80,7 +80,7 @@ the respective MIME type via `concat_types`,
 <br/>
 <br/>
 
-**concat\_max\_files** `number`p
+**concat\_max\_files** `number`
 
 **default:** `concat_max_files 10`
 
