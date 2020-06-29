@@ -47,7 +47,7 @@ It enables the concatenation in a given context.
 
 **concat_types** `MIME types`
 
-**default:** `concat_types: text/css application/x-javascript`
+**default:** `concat_types: text/css application/javascript`
 
 **context:** `http, server, location`
 
@@ -80,7 +80,7 @@ the respective MIME type via `concat_types`,
 <br/>
 <br/>
 
-**concat\_max\_files** `number`p
+**concat\_max\_files** `number`
 
 **default:** `concat_max_files 10`
 
