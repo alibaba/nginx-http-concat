@@ -109,7 +109,7 @@ directive. Set it to the value you need.
 
 Defines the **delimiter** between two files.
 If the config is **concat_delimiter "\n"**,a '\n' would be inserted betwen 1.js and 2.js when
-visted http://example.com/??1.js,2.js
+visited http://example.com/??1.js,2.js
 
 <br/>
 <br/>
